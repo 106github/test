@@ -11,16 +11,15 @@ const addressFrom_substr=addressFrom.substr(2);
 const addressTo_substr=addressTo.substr(2);
 
 function sendSigned(txData, cb) {
-  //const privateKey = new Buffer(privKey, 'hex')
-  const privateKey = new Buffer(process.env["PRIVATE_KEY"], 'hex');
+  //const privateKey = Buffer.from(privKey, 'hex')  
+  const privateKey = Buffer.from(process.env.PRIVATE_KEY, 'hex');
   const transaction = new Tx(txData)
   transaction.sign(privateKey)
   const serializedTx = transaction.serialize().toString('hex')
   web3.eth.sendSignedTransaction('0x' + serializedTx, cb)
 }
 
-//let encoded_tx = trigger_erc20_contract.methods.transfer_by_owner(addressFrom,'0x55a1119634700615234595AaA2f1C55ba63366e9').encodeABI(addressFrom,'0x55a1119634700615234595AaA2f1C55ba63366e9');
- 
+//let encoded_tx = trigger_erc20_contract.mytt.methods.transfer_by_owner(addressFrom,'0x55a1119634700615234595AaA2f1C55ba63366e9').encodeABI()
  
 web3.eth.getTransactionCount(addressFrom).then(txCount => {
   const txData = {
